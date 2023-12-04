@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF 8">
+    <meta name="viewport" content="widht-device-width, initial-scale=1.0">
+    <title>Privilege App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        h1 {
+            color: #333
+        }
+        
+        button {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <h1>Selamat datang di Aplikasi Privilege</h1>
+        <div id="user-status"></div><button onclick="login()">Login</button><button onclick="logout()">Logout</button><button onclick="manageStudents()">Kelola Siswa</button><button onclick="changeStudents()">Ubah Siswa</button><button onclick="manageClasses()">Kelola Kelas</button>
+        <button onclick="manageReligion()">Kelola Agama</button>
+    </div>
+    <script>
+        let currentUser = null;
+
+        function login() {
+            const role = prompt("Masukkan peran anda (administrator, petugas, siswa);");
+            const password = prompt("Masukkan kata sandi:");
+            if (isValidLogin(role, password)) {
+                currentUser = role;
+                displayUserStatus();
+            } else {
+                alter("Autentifikasi gagal. Periksa peran dan kata sandi Anda.");
+            }
+        }
+
+        function isValidLogi(role, password) {
+            if (role === 'administrator' || role === 'petugas') {
+                return password === '123';
+            }
+            return true; // Siswa atau peran lainnya 
+        }
+
+        function logout() {
+            currentUser = null;
+            displayUserStatus();
+        }
+
+        function displayUseStatus() {
+            const userStatusElement = document.getElementById('user-status');
+            userStatusElement.innerHTML = currentUser ? '<p>Sedang login sebagai: $(currentUser)</p>' : '<p>Belum Login</p>';
+        }
+
+        function manageStudent() {
+            if (currentUser === 'administrator' || currentUser === 'petugas') {
+                alert('Anda dapat menambah atau menghapus data siswa.');
+            } else {
+                alert('Anda tidak memiliki izin untuk mengakses fitur ini.');
+            }
+        }
+
+        function changeClass() {
+            if (currentUser === 'administrator' || currentUser === 'petugas' || currentUser === 'siswa') {
+                alert('Anda dapat mengubah data kelas.');
+            } else {
+                alert('Anda tidak memiliki izin untuk mengakses fitur ini.');
+            }
+        }
+
+        function manageClasses() {
+            if (currentUser === 'administrator' || currentUser === 'petugas') {
+                alert('Anda dapat mengelola kelas.');
+            } else {
+                alert('Anda tidak memiliki izin untuk mengakses fitur ini.');
+            }
+        }
+
+        function manageReligions() {
+            if (currentUser === 'administrator' || currentUser === 'petugas') {
+                alert('Anda dapat mengelola agama.');
+            } else {
+                alert('Anda tidak memiliki izin untuk mengakses fitur ini.');
+            }
+        }
+
+        // Display initial user status
+        displayUserStatus();
+    </script>
+</body>
+
+</html>
